@@ -1,0 +1,111 @@
+body {
+	margin: 0px;
+	display: flex;
+}
+.article {
+	background: url(./png/Backgrpund.png);
+	background-position: center;
+	background-size: cover;
+	width: 100%;
+	height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header {
+	width: 80%;
+	height: 100px;
+	background: #0000007d;
+	margin: 50px;
+	margin-bottom: 100px;
+	border-radius: 20px;
+	display: grid;
+ 	grid-template-columns: 1fr 3fr 1fr 1fr;
+ 	font-family: 'Open Sans', sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 30px;
+	line-height: 100px;
+	text-align: center;
+	color: white;
+}
+.header__score {
+}
+.header__buttons {
+}
+.fon {
+	width: 540px;
+	height:540px;
+	position: absolute;
+	transform: translateX(-50%);
+}
+.portal {
+	background: #0000007d;
+	border-radius: 20px;
+	padding: 20px;
+	display: grid;
+ 	grid-template-columns: 1fr 1fr 1fr;
+ 	grid-template-rows: 1fr 1fr 1fr;
+ 	grid-gap: 5px;
+ 	width: 540px;
+ 	height: 540px;
+}
+.portal__item {
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	position: relative;
+}
+.portal__item > img:first-child {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+.astronaft__item {
+	width: 60%;
+	height: 60%;
+	position: absolute;
+	transform: translate(34%, 34%);
+	animation: scaling 2s;
+}
+@keyframes scaling {
+	0% {transform: translate(34%, 34%) scale(0);}
+	70% {transform: translate(34%, 34%) scale(1.2);}
+	100% {transform: translate(34%, 34%) scale(1);}
+} 
+#logo {
+	position: absolute;
+	left: 2%;
+	bottom: 3%;
+    width: 170px;   
+}
+
+
+
+
+
+.bird__item--ani {
+	animation: birAni 8s;
+	animation-timing-function: linear;
+}
+@keyframes birAni {
+  0% {transform: translateX(-100px);}
+  100% {transform: translateX(100vw);}
+}
+.bird__item--ani--back {
+	animation: birAni--back 8s;
+	animation-timing-function: linear;
+}
+@keyframes birAni--back {
+  0% {transform: translateX(100vw) scaleX(-1);}
+  100% {transform: translateX(-100px) scaleX(-1);}
+}
+
+
+} 
+img {
+	-webkit-user-drag: none;
+ 	user-drag: none;
+ 	user-select: none;
+}
