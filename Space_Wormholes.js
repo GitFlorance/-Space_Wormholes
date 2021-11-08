@@ -3,68 +3,87 @@ document.addEventListener("DOMContentLoaded", ()=>{
 	const score = document.querySelector(".js-score");
 	const infoGame = document.querySelector(".js-info_button");
 	const startButton = document.querySelector(".js-start_button");
+	const infoBackground = document.querySelector(".article__fon-message");
 
-	const astronaftArr = [
-		 "./png/astronaft_1.png",
-		 "./png/astronaft_2.png",
-		 "./png/astronaft_3.png",
-		 "./png/astronaft_4.png",
-		 "./png/astronaft_5.png",
-		 "./png/astronaft_6.png",
+	let giveInfo = function () {
+		infoBackground.classList.toggle("hidden");
+	};
+
+	infoGame.addEventListener("click", giveInfo);
+	infoBackground.addEventListener("click", giveInfo);
+
+	const astronautArr = [
+		 "./png/astronaut_1.png",
+		 "./png/astronaut_2.png",
+		 "./png/astronaut_3.png",
+		 "./png/astronaut_4.png",
+		 "./png/astronaut_5.png",
+		 "./png/astronaut_6.png",
 	];
 
+	const START_VALUE = 2000;
+
 	const scoreCounter = (function () {
-		let startSense = 0;
+		let value = 0;
 		return {
 		    indexCounter: document.querySelector(".numberCounter"),
 		    insert() {
-		    	this.indexCounter.innerHTML = startSense
+		    	this.indexCounter.innerHTML = value
 		    },
 		    increace() {   
-		    	startSense += 10;
+		    	value += 10;
 		    	this.insert();
-	    	}, 
+	    	},
+	    	getValue() {
+	    		return value; 
+	    	},
 		}
 	})(); 
 
+	console.log(scoreCounter, "score");
+	console.log(scoreCounter.getValue(), "value");
+	const delay = () => START_VALUE - Math.floor(scoreCounter.getValue()/50)*300;
+
+	console.log(delay);
+
 	const portalArr = document.querySelectorAll(".portal__item");
-	class astronaftElement {
+
+	class astronautElement {
 		constructor (container) {
 			this.element = new Image();
-			this.element.src = astronaftArr[Math.floor(astronaftArr.length * Math.random())];
+			this.element.src = astronautArr[Math.floor(astronautArr.length * Math.random())];
 			this.element.innerHTML = " ";
-			this.element.classList.add("astronaft__item");
+			this.element.classList.add("astronaut__item");
 			container.appendChild (this.element);
-			const astronaftElementClick = (event) => {
+			const astronautElementClick = (event) => {
 				event.stopPropagation();
-
-				this.element.removeEventListener("click", astronaftElementClick);
 				scoreCounter.increace();
-				this.deletAstronaft();
+				this.deleteAstronaut();
+				this.cleanTimer();
+				this.element.removeEventListener("click", astronautElementClick);
 			}
-			this.element.addEventListener ("click", astronaftElementClick);
-			this.timer = setTimeout (this.deletAstronaft.bind(this), 3000);
-			this.cleanTimer();
+			this.element.addEventListener ("click", astronautElementClick);
+			this.timer = setTimeout (this.deleteAstronaut.bind(this), delay()+100);
+			console.log(delay());
 		}
-		deletAstronaft () {
+		deleteAstronaut () {
 			this.element.remove();
-			this.element.removeEventListener("click", this.astronaftElementClick);
-			missClick();
+			this.element.removeEventListener("click", this.astronautElementClick);
 		}
 		cleanTimer () {
 			clearTimeout(this.timer);
 		}
 	}
 
-	const astronaftController = {
+	const astronautController = {
 		create() {
-    		const astronaft = new astronaftElement (portalArr[Math.floor(portalArr.length * Math.random())]);
+    		const astronaut = new astronautElement (portalArr[Math.floor(portalArr.length * Math.random())]);
   		},
   		createIteration () {
   			this.creationInterval = setInterval(() => {
-				astronaftController.create();
-			} , 3500);
-			this.timer = setTimeout(() => { clearInterval(this.creationInterval);}, 40000);
+				astronautController.create();
+			} , delay());
+			this.timer = setTimeout(() => { clearInterval(this.creationInterval);}, 60000);
   		},
   		clean() {
   			clearInterval(this.creationInterval);
@@ -73,11 +92,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 	}
 
 	startButton.addEventListener ("click", (event) => {
-		astronaftController.createIteration ();
+		astronautController.createIteration ();
 		event.stopPropagation();
-		//startButton.style.display = "none";
-		//scoreIndex.setStartVal();
-		//healthIndex.setStartVal();
-		//background.addEventListener("click", missClick);
 	})
 });
