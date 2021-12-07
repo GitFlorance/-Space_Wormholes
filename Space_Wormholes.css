@@ -126,7 +126,7 @@ body {
 }
 
 
-@media screen and (max-width: 900px) {
+@media screen and (max-device-width: 900px) {
   /* For mobile phones: */
 
 	.header {
